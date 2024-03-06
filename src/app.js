@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { LIMIT, limit_KB } from "./constants";
+import { limit_KB } from "./constants.js";
 
 const app = express();
 
@@ -20,5 +20,11 @@ app.use(express.urlencoded({ extended: true, limit: limit_KB }));
 app.use(express.static("public"));
 
 app.use(cookieParser());
+
+//routes
+import userRouter from "./routes/user.routes.js";
+// routes decleration
+app.use("/api/v1/users", userRouter);
+//http:localhots:4000/api/v1/users/register
 
 export default app;
