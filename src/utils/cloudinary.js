@@ -1,4 +1,4 @@
-import { auto } from "@popperjs/core";
+import auto from "@popperjs/core";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 
@@ -16,7 +16,8 @@ const uploadOnCloudinary = async (localFilePath) => {
       resource_type: "auto",
     });
     //file has been uploaded succefully
-    console.log("file has been uploaded on cloudinary", response.url);
+    // console.log("file has been uploaded on cloudinary", response.url);
+    fs.unlinkSync(localFilePath);
     return response;
   } catch (error) {
     fs.unlinkSync(localFilePath); // remove locally saved temp file as the upload operation got fail
@@ -24,7 +25,7 @@ const uploadOnCloudinary = async (localFilePath) => {
   }
 };
 
-export { uploadOnCloudinary };
+export default uploadOnCloudinary;
 
 //below is the temporary method for above method
 // cloudinary.uploader.upload(
