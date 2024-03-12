@@ -1,10 +1,10 @@
 //we are creating a middleware here
-import { User } from "../models/user.models";
-import ApiError from "../utils/APIerror";
-import asyncHandler from "../utils/asyncHandler";
-import Jwt from "jsonwebtoken";
+import { User } from "../models/user.models.js";
+import ApiError from "../utils/APIerror.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import jwt from "jsonwebtoken";
 
-export const verifyJWT = asyncHandler(async (req, res, next) => {
+export const verifyJWT = asyncHandler(async (req, _, next) => {
   try {
     const token =
       req.cookies?.accessToken ||
@@ -14,7 +14,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
       throw new ApiError(401, "Unauthorized access");
     }
 
-    const decodedToken = Jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     const user = await User.findById(decodedToken?._id).select(
       "-password -refreshToken"

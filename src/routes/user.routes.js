@@ -1,13 +1,14 @@
 import { Router } from "express";
-import registerUser, {
+import {
+  registerUser,
   logOutUser,
   loginUser,
 } from "../controllers/user.controllers.js";
 import { upload } from "../middleware/multer.middlewares.js";
 import { verifyJWT } from "../middleware/auth.middlewares.js";
 
-const userRouter = Router();
-userRouter.route("/register").post(
+const router = Router();
+router.route("/register").post(
   upload.fields([
     {
       name: "avatar",
@@ -21,8 +22,8 @@ userRouter.route("/register").post(
   registerUser
 ); //here i solve a problem that i accidently type ./register instead of /register thats why I got error 404
 
-Router.route("/login").post(loginUser);
+router.route("/login").post(loginUser);
 
 //secured routes
 router.route("/logout").post(verifyJWT, logOutUser);
-export default userRouter;
+export default router;
