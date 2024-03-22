@@ -1,12 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
-const playlistSchema = new Schema(
+const commentsSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
+    content: {
       type: String,
       required: true,
     },
@@ -14,7 +10,7 @@ const playlistSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    videos: {
+    Video: {
       type: Schema.Types.ObjectId,
       ref: "Video",
     },
@@ -22,6 +18,4 @@ const playlistSchema = new Schema(
   { timestamps: true }
 );
 
-export const Playlist = mongoose.model("Playlist", playlistSchema);
-
-//no need to update itw totally correct
+export const Comment = mongoose.model("Comment", commentsSchema);
